@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Predictor - Can I Bunk Today?</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Attendance Predictor">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <meta name="msapplication-TileImage" content="icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#667eea">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" 
+            crossorigin="anonymous"></script>
+    
+    <!-- Google Analytics (Optional for better ad targeting) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+            <h1><i class="fas fa-calendar-check"></i> Attendance Predictor</h1>
+            <p>Check if you can safely bunk class today!</p>
+        </header>
+
+        <!-- AdSense Banner Ad (Top) -->
+        <div class="ad-container top-banner">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                 data-ad-slot="1234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <div class="card">
+            <div class="form-section">
+                <h2><i class="fas fa-user-graduate"></i> Your Attendance Data</h2>
+                
+                <div class="input-group">
+                    <label for="totalClasses">Total Classes Conducted</label>
+                    <input type="number" id="totalClasses" placeholder="e.g., 50" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label for="attendedClasses">Classes Attended</label>
+                    <input type="number" id="attendedClasses" placeholder="e.g., 40" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label for="minAttendance">Minimum Required Attendance (%)</label>
+                    <input type="number" id="minAttendance" placeholder="75" min="1" max="100" value="75">
+                </div>
+
+                <div class="input-group">
+                    <label for="futureClasses">Expected Future Classes</label>
+                    <input type="number" id="futureClasses" placeholder="e.g., 20" min="0" value="20">
+                </div>
+
+                <button onclick="calculateAttendance()" class="calculate-btn">
+                    <i class="fas fa-calculator"></i> Calculate
+                </button>
+            </div>
+        </div>
+
+        <!-- AdSense Sidebar Ad -->
+        <div class="ad-container sidebar-ad">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                 data-ad-slot="0987654321"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <div class="results hidden" id="results">
+            <div class="current-stats">
+                <h3><i class="fas fa-chart-line"></i> Current Status</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="currentPercentage">0%</div>
+                        <div class="stat-label">Current Attendance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="classesCanBunk">0</div>
+                        <div class="stat-label">Classes You Can Bunk</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="prediction-card" id="predictionCard">
+                <div class="prediction-header">
+                    <h3 id="predictionTitle"></h3>
+                </div>
+                <div class="prediction-content" id="predictionContent">
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h3><i class="fas fa-chart-line"></i> Attendance Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                    <div class="progress-text" id="progressText">0%</div>
+                </div>
+                <div class="progress-labels">
+                    <span>0%</span>
+                    <span id="minRequiredLabel">75%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <h3><i class="fas fa-chart-area"></i> Attendance Prediction Chart</h3>
+                <div class="chart-container">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <span class="legend-color current"></span>
+                        <span>Current Attendance</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color predicted"></span>
+                        <span>Predicted Attendance</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color minimum"></span>
+                        <span>Minimum Required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenarios">
+                <h3><i class="fas fa-scenarios"></i> What If Scenarios</h3>
+                <div class="scenario-grid">
+                    <div class="scenario-card">
+                        <h4>If you bunk 1 class:</h4>
+                        <p id="scenario1"></p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>If you bunk 3 classes:</h4>
+                        <p id="scenario3"></p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>If you attend all remaining:</h4>
+                        <p id="scenarioAll"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AdSense Bottom Banner -->
+        <div class="ad-container bottom-banner">
+            <ins class="adsbygoogle"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+                 data-ad-slot="1122334455"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <footer>
+            <p><i class="fas fa-info-circle"></i> Remember: Regular attendance is key to academic success!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="pwa.js"></script>
+</body>
+</html>
