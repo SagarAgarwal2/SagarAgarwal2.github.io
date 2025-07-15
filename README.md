@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Attendance Predictor - Can I Bunk Today? 🎓
 
 A powerful Progressive Web App (PWA) that helps college students make informed decisions about their attendance by predicting whether they can safely skip classes while maintaining minimum attendance requirements.
@@ -231,3 +232,6 @@ This tool is for educational and planning purposes only. Always:
 ---
 
 **Made with ❤️ for students who want to make smart attendance decisions!**
+=======
+# SagarAgarwal2.github.io
+>>>>>>> 93688eadf13a85706375fc2f92ee71d406203531
