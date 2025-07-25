@@ -1,13 +1,32 @@
 {
-  "name": "Attendance Predictor - Can I Bunk Today?",
+  "name": "Attendance Predictor - Can I Bunk Today? | Free Student Tool",
   "short_name": "AttendancePredictor",
-  "description": "Smart attendance calculator for college students to predict if they can safely bunk classes",
-  "start_url": "/",
+  "description": "Free attendance calculator for students. Check if you can safely skip class while maintaining minimum attendance requirements. Calculate attendance percentage, track progress, and make informed decisions about class attendance.",
+  "start_url": "/?utm_source=pwa",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
   "orientation": "portrait-primary",
   "categories": ["education", "productivity", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Quick Calculate",
+      "short_name": "Calculate",
+      "description": "Quickly calculate your attendance",
+      "url": "/?action=calculate",
+      "icons": [
+        {
+          "src": "icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -72,24 +91,6 @@
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Attendance Predictor on Mobile"
-    }
-  ],
-  "lang": "en",
-  "dir": "ltr",
-  "scope": "/",
-  "prefer_related_applications": false,
-  "shortcuts": [
-    {
-      "name": "Quick Calculate",
-      "short_name": "Calculate",
-      "description": "Quickly calculate your attendance",
-      "url": "/?action=calculate",
-      "icons": [
-        {
-          "src": "icons/icon-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
     }
   ]
 }

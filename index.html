@@ -12,7 +12,46 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attendance Predictor - Can I Bunk Today?</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>Attendance Predictor - Can I Bunk Today? | Free Student Tool</title>
+    <meta name="title" content="Attendance Predictor - Can I Bunk Today? | Free Student Tool">
+    <meta name="description" content="Free attendance calculator for students. Check if you can safely skip class while maintaining minimum attendance requirements. Calculate attendance percentage, track progress, and make informed decisions about class attendance.">
+    <meta name="keywords" content="attendance calculator, student tools, attendance predictor, class attendance, bunk calculator, attendance percentage, student attendance tracker, academic tools, education calculator">
+    <meta name="author" content="SagarAgarwal2">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sagaragarwal2.github.io/">
+    <meta property="og:title" content="Attendance Predictor - Can I Bunk Today? | Free Student Tool">
+    <meta property="og:description" content="Free attendance calculator for students. Check if you can safely skip class while maintaining minimum attendance requirements. Calculate attendance percentage and track progress.">
+    <meta property="og:image" content="https://sagaragarwal2.github.io/icons/icon-192x192.png">
+    <meta property="og:image:width" content="192">
+    <meta property="og:image:height" content="192">
+    <meta property="og:site_name" content="Attendance Predictor">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://sagaragarwal2.github.io/">
+    <meta property="twitter:title" content="Attendance Predictor - Can I Bunk Today?">
+    <meta property="twitter:description" content="Free attendance calculator for students. Check if you can safely skip class while maintaining minimum attendance requirements.">
+    <meta property="twitter:image" content="https://sagaragarwal2.github.io/icons/icon-192x192.png">
+    <meta property="twitter:creator" content="@SagarAgarwal2">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="Attendance Predictor">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Attendance Predictor">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://sagaragarwal2.github.io/">
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
@@ -32,158 +71,528 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <!-- Place above your main script.js -->
+
+    <!-- Auth Controls (top of dashboard) -->
+    <div class="auth-controls">
+        <span id="user-info" class="hidden"></span>
+        <button class="auth-btn" id="login-btn" onclick="showAuthModal()"><i class="fas fa-sign-in-alt"></i> Log In / Sign Up</button>
+        <button class="auth-btn hidden" id="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+    </div>
+    <!-- Auth Modal (hidden by default) -->
+    <div id="auth-modal" class="auth-modal hidden">
+        <div class="auth-modal-content">
+            <h3>Sign In / Sign Up</h3>
+            <input type="email" id="authEmail" placeholder="Email" required>
+            <input type="password" id="authPassword" placeholder="Password" required>
+            <button onclick="loginOrSignup()">Continue</button>
+            <button onclick="hideAuthModal()">Cancel</button>
+            <div id="auth-error" class="auth-error"></div>
+        </div>
+    </div>
+    <!-- Onboarding Modal (shown on first visit) -->
+    <div id="onboarding-modal" class="onboarding-modal hidden">
+        <div class="onboarding-content">
+            <h3>Welcome to Attendance & Study Tracker!</h3>
+            <ol>
+                <li>Add your subjects and track attendance for each one.</li>
+                <li>Record grades, set reminders, and manage your timetable.</li>
+                <li>Sync your data across devices by signing up!</li>
+                <li>Check achievements and detailed statistics for insights.</li>
+            </ol>
+            <button onclick="hideOnboarding()">Get Started</button>
+        </div>
+    </div>
+    <!-- Place above the data-controls -->
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Attendance Predictor",
+        "alternateName": "Can I Bunk Today",
+        "url": "https://sagaragarwal2.github.io/",
+        "description": "Free attendance calculator for students to check if they can safely skip class while maintaining minimum attendance requirements.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Person",
+            "name": "Sagar Agarwal",
+            "url": "https://github.com/SagarAgarwal2"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SagarAgarwal2",
+            "url": "https://sagaragarwal2.github.io/"
+        },
+        "inLanguage": "en-US",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0",
+        "datePublished": "2024-01-01",
+        "dateModified": "2025-07-16",
+        "keywords": "attendance calculator, student tools, attendance predictor, class attendance, bunk calculator",
+        "audience": {
+            "@type": "Audience",
+            "audienceType": "Students"
+        },
+        "featureList": [
+            "Calculate current attendance percentage",
+            "Predict future attendance",
+            "Determine how many classes can be safely missed",
+            "Visual progress tracking",
+            "What-if scenario analysis",
+            "Offline functionality"
+        ]
+    }
+    </script>
+    
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does the attendance predictor work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The attendance predictor calculates your current attendance percentage and determines how many classes you can miss while still maintaining the minimum required attendance percentage. It uses your total classes, attended classes, and minimum attendance requirement to make predictions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this attendance calculator accurate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, the calculator uses precise mathematical formulas to calculate attendance percentages and predictions. However, always verify with your institution's specific attendance policies as they may have additional requirements."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use this offline?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, this is a Progressive Web App (PWA) that can work offline once loaded. You can install it on your device and use it without an internet connection."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the minimum attendance requirement?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The minimum attendance requirement varies by institution. Common requirements are 75%, 80%, or 85%. You can adjust this value in the calculator to match your institution's policy."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Breadcrumb Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://sagaragarwal2.github.io/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Attendance Predictor",
+                "item": "https://sagaragarwal2.github.io/"
+            }
+        ]
+    }
+    </script>
+    
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7445444641578099"
             crossorigin="anonymous"></script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
-        <header>
+        <header role="banner">
             <div class="header-controls">
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
             </div>
-            <h1><i class="fas fa-calendar-check"></i> Attendance Predictor</h1>
+            <h1><i class="fas fa-calendar-check" aria-hidden="true"></i> Attendance Predictor</h1>
             <p>Check if you can safely bunk class today!</p>
         </header>
 
-        <!-- AdSense Banner Ad (Top) -->
-        <div class="ad-container top-banner">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-7445444641578099"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
+        <main role="main" id="main-content">
+            <!-- Data Export/Import Controls (top of dashboard) -->
+            <div class="data-controls">
+                <button class="export-btn" onclick="exportData('json')"><i class="fas fa-file-export"></i> Export JSON</button>
+                <button class="export-btn" onclick="exportData('csv')"><i class="fas fa-file-csv"></i> Export CSV</button>
+                <label class="import-label">
+                    <i class="fas fa-file-import"></i> Import Data
+                    <input type="file" id="importFile" accept=".json,.csv" onchange="importData(event)">
+                </label>
+            </div>
+            <!-- Place above the Subjects section -->
+            <div class="container">
+        <header role="banner">
 
-        <div class="card">
-            <div class="form-section">
-                <h2><i class="fas fa-user-graduate"></i> Your Attendance Data</h2>
-                
-                <div class="input-group">
-                    <label for="totalClasses">Total Classes Conducted</label>
-                    <input type="number" id="totalClasses" placeholder="e.g., 50" min="1">
-                </div>
-
-                <div class="input-group">
-                    <label for="attendedClasses">Classes Attended</label>
-                    <input type="number" id="attendedClasses" placeholder="e.g., 40" min="0">
-                </div>
-
-                <div class="input-group">
-                    <label for="minAttendance">Minimum Required Attendance (%)</label>
-                    <input type="number" id="minAttendance" placeholder="75" min="1" max="100" value="75">
-                </div>
-
-                <div class="input-group">
-                    <label for="futureClasses">Expected Future Classes</label>
-                    <input type="number" id="futureClasses" placeholder="e.g., 20" min="0" value="20">
-                </div>
-
-                <button onclick="calculateAttendance()" class="calculate-btn">
-                    <i class="fas fa-calculator"></i> Calculate
+            <section class="card" id="subjects-section" aria-labelledby="subjects-heading">
+                <h2 id="subjects-heading"><i class="fas fa-book" aria-hidden="true"></i> Subjects</h2>
+                <div id="subjects-list"></div>
+                <button type="button" class="add-subject-btn" onclick="showAddSubjectForm()">
+                    <i class="fas fa-plus"></i> Add Subject
                 </button>
-            </div>
-        </div>
+                <form id="subject-form" class="hidden" onsubmit="saveSubject(event)">
+                    <input type="hidden" id="subjectId">
+                    <div class="input-group">
+                        <label for="subjectName">Subject Name</label>
+                        <input type="text" id="subjectName" required placeholder="e.g., Mathematics">
+                    </div>
+                    <div class="input-group">
+                        <label for="subjectTotalClasses">Total Classes Conducted</label>
+                        <input type="number" id="subjectTotalClasses" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="subjectAttendedClasses">Classes Attended</label>
+                        <input type="number" id="subjectAttendedClasses" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="subjectMinAttendance">Minimum Required Attendance (%)</label>
+                        <input type="number" id="subjectMinAttendance" min="1" max="100" value="75" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="subjectFutureClasses">Expected Future Classes</label>
+                        <input type="number" id="subjectFutureClasses" min="0" value="20">
+                    </div>
+                    <button type="submit" class="save-subject-btn"><i class="fas fa-save"></i> Save Subject</button>
+                    <button type="button" class="cancel-subject-btn" onclick="hideSubjectForm()">Cancel</button>
+                </form>
+            </section>
 
-        <!-- AdSense Sidebar Ad -->
-        <div class="ad-container sidebar-ad">
-            <ins class="adsbygoogle"
-                 data-ad-client="ca-pub-7445444641578099"
-                 data-ad-slot="0987654321"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-        </div>
+            <!-- Grades Tracker Section (below attendance form, only if a subject is selected) -->
+            <section class="card hidden" id="grades-section" aria-labelledby="grades-heading">
+                <h2 id="grades-heading"><i class="fas fa-clipboard-list"></i> Grades & Marks</h2>
+                <div id="grades-list"></div>
+                <button type="button" class="add-grade-btn" onclick="showAddGradeForm()">
+                    <i class="fas fa-plus"></i> Add Grade
+                </button>
+                <form id="grade-form" class="hidden" onsubmit="saveGrade(event)">
+                    <input type="hidden" id="gradeId">
+                    <div class="input-group">
+                        <label for="gradeType">Type</label>
+                        <select id="gradeType" required>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Quiz">Quiz</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Project">Project</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="gradeTitle">Title/Description</label>
+                        <input type="text" id="gradeTitle" required placeholder="e.g., Midterm 1">
+                    </div>
+                    <div class="input-group">
+                        <label for="gradeScore">Score</label>
+                        <input type="number" id="gradeScore" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="gradeMaxScore">Max Score</label>
+                        <input type="number" id="gradeMaxScore" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="gradeDate">Date</label>
+                        <input type="date" id="gradeDate">
+                    </div>
+                    <button type="submit" class="save-grade-btn"><i class="fas fa-save"></i> Save Grade</button>
+                    <button type="button" class="cancel-grade-btn" onclick="hideGradeForm()">Cancel</button>
+                </form>
+                <div id="grades-summary" class="grades-summary"></div>
+            </section>
 
-        <div class="results hidden" id="results">
-            <div class="current-stats">
-                <h3><i class="fas fa-chart-line"></i> Current Status</h3>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value" id="currentPercentage">0%</div>
-                        <div class="stat-label">Current Attendance</div>
+            <!-- Timetable Section (below grades section, only if a subject is selected) -->
+            <section class="card hidden" id="timetable-section" aria-labelledby="timetable-heading">
+                <h2 id="timetable-heading"><i class="fas fa-calendar-alt"></i> Timetable</h2>
+                <div id="timetable-list"></div>
+                <button type="button" class="add-timetable-btn" onclick="showAddTimetableForm()">
+                    <i class="fas fa-plus"></i> Add Class Time
+                </button>
+                <form id="timetable-form" class="hidden" onsubmit="saveTimetableEntry(event)">
+                    <input type="hidden" id="timetableId">
+                    <div class="input-group">
+                        <label for="timetableDay">Day</label>
+                        <select id="timetableDay" required>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
+                        </select>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="classesCanBunk">0</div>
-                        <div class="stat-label">Classes You Can Bunk</div>
+                    <div class="input-group">
+                        <label for="timetableStart">Start Time</label>
+                        <input type="time" id="timetableStart" required>
                     </div>
-                </div>
-            </div>
+                    <div class="input-group">
+                        <label for="timetableEnd">End Time</label>
+                        <input type="time" id="timetableEnd" required>
+                    </div>
+                    <button type="submit" class="save-timetable-btn"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="cancel-timetable-btn" onclick="hideTimetableForm()">Cancel</button>
+                </form>
+            </section>
 
-            <div class="prediction-card" id="predictionCard">
-                <div class="prediction-header">
-                    <h3 id="predictionTitle"></h3>
-                </div>
-                <div class="prediction-content" id="predictionContent">
-                </div>
-            </div>
+            <!-- Reminders Section (below timetable section, only if a subject is selected) -->
+            <section class="card hidden" id="reminders-section" aria-labelledby="reminders-heading">
+                <h2 id="reminders-heading"><i class="fas fa-bell"></i> Reminders</h2>
+                <div id="reminders-list"></div>
+                <button type="button" class="add-reminder-btn" onclick="showAddReminderForm()">
+                    <i class="fas fa-plus"></i> Add Reminder
+                </button>
+                <form id="reminder-form" class="hidden" onsubmit="saveReminder(event)">
+                    <input type="hidden" id="reminderId">
+                    <div class="input-group">
+                        <label for="reminderType">Type</label>
+                        <select id="reminderType" required>
+                            <option value="Assignment">Assignment</option>
+                            <option value="Exam">Exam</option>
+                            <option value="Project">Project</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="reminderTitle">Title/Description</label>
+                        <input type="text" id="reminderTitle" required placeholder="e.g., Assignment 2">
+                    </div>
+                    <div class="input-group">
+                        <label for="reminderDate">Due/Exam Date</label>
+                        <input type="date" id="reminderDate" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="reminderNotes">Notes</label>
+                        <input type="text" id="reminderNotes" placeholder="Optional notes">
+                    </div>
+                    <button type="submit" class="save-reminder-btn"><i class="fas fa-save"></i> Save Reminder</button>
+                    <button type="button" class="cancel-reminder-btn" onclick="hideReminderForm()">Cancel</button>
+                </form>
+            </section>
 
-            <div class="progress-section">
-                <h3><i class="fas fa-chart-line"></i> Attendance Progress</h3>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                    <div class="progress-text" id="progressText">0%</div>
+            <!-- Attendance Rules Section (below reminders section, only if a subject is selected) -->
+            <section class="card hidden" id="attendance-rules-section" aria-labelledby="attendance-rules-heading">
+                <h2 id="attendance-rules-heading"><i class="fas fa-cogs"></i> Attendance Rules</h2>
+                <div class="input-group">
+                    <label><input type="checkbox" id="weightedAttendance" onchange="toggleWeightedAttendance()"> Weighted Attendance (e.g., Lectures, Labs)</label>
                 </div>
-                <div class="progress-labels">
-                    <span>0%</span>
-                    <span id="minRequiredLabel">75%</span>
-                    <span>100%</span>
+                <div id="attendance-components-list"></div>
+                <button type="button" class="add-component-btn hidden" onclick="showAddComponentForm()">
+                    <i class="fas fa-plus"></i> Add Component
+                </button>
+                <form id="component-form" class="hidden" onsubmit="saveComponent(event)">
+                    <input type="hidden" id="componentId">
+                    <div class="input-group">
+                        <label for="componentType">Type</label>
+                        <input type="text" id="componentType" required placeholder="e.g., Lecture, Lab">
+                    </div>
+                    <div class="input-group">
+                        <label for="componentWeight">Weight</label>
+                        <input type="number" id="componentWeight" min="1" value="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="componentMinPercent">Min %</label>
+                        <input type="number" id="componentMinPercent" min="1" max="100" value="75" required>
+                    </div>
+                    <button type="submit" class="save-component-btn"><i class="fas fa-save"></i> Save</button>
+                    <button type="button" class="cancel-component-btn" onclick="hideComponentForm()">Cancel</button>
+                </form>
+                <div class="input-group">
+                    <label for="excludeDays">Exclude Dates (holidays, etc.)</label>
+                    <input type="text" id="excludeDays" placeholder="YYYY-MM-DD, comma separated" onchange="saveExcludeDays()">
                 </div>
-            </div>
+            </section>
 
-            <div class="chart-section">
-                <h3><i class="fas fa-chart-area"></i> Attendance Prediction Chart</h3>
-                <div class="chart-container">
-                    <canvas id="attendanceChart"></canvas>
-                </div>
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <span class="legend-color current"></span>
-                        <span>Current Attendance</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color predicted"></span>
-                        <span>Predicted Attendance</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color minimum"></span>
-                        <span>Minimum Required</span>
-                    </div>
-                </div>
-            </div>
+            <section class="card" aria-labelledby="attendance-form-heading">
+                <div class="form-section">
+                    <h2 id="attendance-form-heading"><i class="fas fa-user-graduate" aria-hidden="true"></i> Your Attendance Data</h2>
+                    
+                    <form role="form" aria-label="Attendance Calculator Form">
+                        <div class="input-group">
+                            <label for="totalClasses">Total Classes Conducted</label>
+                            <input type="number" id="totalClasses" placeholder="e.g., 50" min="1" required 
+                                   aria-describedby="totalClasses-help">
+                            <small id="totalClasses-help" class="help-text">Enter the total number of classes conducted so far</small>
+                        </div>
 
-            <div class="scenarios">
-                <h3><i class="fas fa-scenarios"></i> What If Scenarios</h3>
-                <div class="scenario-grid">
-                    <div class="scenario-card">
-                        <h4>If you bunk 1 class:</h4>
-                        <p id="scenario1"></p>
-                    </div>
-                    <div class="scenario-card">
-                        <h4>If you bunk 3 classes:</h4>
-                        <p id="scenario3"></p>
-                    </div>
-                    <div class="scenario-card">
-                        <h4>If you attend all remaining:</h4>
-                        <p id="scenarioAll"></p>
+                        <div class="input-group">
+                            <label for="attendedClasses">Classes Attended</label>
+                            <input type="number" id="attendedClasses" placeholder="e.g., 40" min="0" required
+                                   aria-describedby="attendedClasses-help">
+                            <small id="attendedClasses-help" class="help-text">Enter the number of classes you have attended</small>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="minAttendance">Minimum Required Attendance (%)</label>
+                            <input type="number" id="minAttendance" placeholder="75" min="1" max="100" value="75" required
+                                   aria-describedby="minAttendance-help">
+                            <small id="minAttendance-help" class="help-text">Your institution's minimum attendance requirement</small>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="futureClasses">Expected Future Classes</label>
+                            <input type="number" id="futureClasses" placeholder="e.g., 20" min="0" value="20"
+                                   aria-describedby="futureClasses-help">
+                            <small id="futureClasses-help" class="help-text">Estimated number of remaining classes in the semester</small>
+                        </div>
+
+                        <button type="button" onclick="calculateAttendance()" class="calculate-btn" aria-describedby="calculate-help">
+                            <i class="fas fa-calculator" aria-hidden="true"></i> Calculate Attendance
+                        </button>
+                        <small id="calculate-help" class="help-text">Click to calculate your attendance predictions</small>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Achievements Section (bottom of dashboard) -->
+            <section class="card" id="achievements-section" aria-labelledby="achievements-heading">
+                <h2 id="achievements-heading"><i class="fas fa-trophy"></i> Achievements</h2>
+                <div id="achievements-list"></div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="card" id="statistics-section" aria-labelledby="statistics-heading">
+                <h2 id="statistics-heading"><i class="fas fa-chart-bar"></i> Statistics & Insights</h2>
+                <div id="statistics-content">
+                    <div id="attendance-trend-chart" style="height:220px;"></div>
+                    <div id="attendance-vs-grades" class="stats-row"></div>
+                    <div id="attendance-by-day" class="stats-row"></div>
+                </div>
+            </section>
+
+            <!-- Personalized Advice/Tips -->
+            <div class="advice-tips" id="advice-tips"></div>
+
+            <!-- AdSense Sidebar Ad -->
+            <aside class="ad-container sidebar-ad" aria-label="Advertisement">
+                <ins class="adsbygoogle"
+                     data-ad-client="ca-pub-7445444641578099"
+                     data-ad-slot="0987654321"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </aside>
+
+            <section class="results hidden" id="results" aria-labelledby="results-heading">
+                <div class="current-stats">
+                    <h3 id="results-heading"><i class="fas fa-chart-line" aria-hidden="true"></i> Current Status</h3>
+                    <div class="stats-grid" role="group" aria-label="Current attendance statistics">
+                        <div class="stat-card">
+                            <div class="stat-value" id="currentPercentage" aria-label="Current attendance percentage">0%</div>
+                            <div class="stat-label">Current Attendance</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="classesCanBunk" aria-label="Number of classes you can skip">0</div>
+                            <div class="stat-label">Classes You Can Bunk</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+
+                <article class="prediction-card" id="predictionCard" aria-labelledby="prediction-title">
+                    <div class="prediction-header">
+                        <h3 id="prediction-title"></h3>
+                    </div>
+                    <div class="prediction-content" id="predictionContent">
+                    </div>
+                </article>
+
+                <section class="progress-section" aria-labelledby="progress-heading">
+                    <h3 id="progress-heading"><i class="fas fa-chart-line" aria-hidden="true"></i> Attendance Progress</h3>
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" 
+                         aria-valuenow="0" aria-labelledby="progress-text" title="Attendance Progress Bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                    <div class="progress-labels" aria-label="Progress scale">
+                        <span>0%</span>
+                        <span id="minRequiredLabel">75%</span>
+                        <span>100%</span>
+                    </div>
+                </section>
+
+                <section class="chart-section" aria-labelledby="chart-heading">
+                    <h3 id="chart-heading"><i class="fas fa-chart-area" aria-hidden="true"></i> Attendance Prediction Chart</h3>
+                    <div class="chart-container">
+                        <canvas id="attendanceChart" role="img" 
+                                aria-label="Attendance prediction chart showing current, predicted, and minimum required attendance"></canvas>
+                    </div>
+                    <div class="chart-legend" role="list" aria-label="Chart legend">
+                        <div class="legend-item" role="listitem">
+                            <span class="legend-color current" aria-hidden="true"></span>
+                            <span>Current Attendance</span>
+                        </div>
+                        <div class="legend-item" role="listitem">
+                            <span class="legend-color predicted" aria-hidden="true"></span>
+                            <span>Predicted Attendance</span>
+                        </div>
+                        <div class="legend-item" role="listitem">
+                            <span class="legend-color minimum" aria-hidden="true"></span>
+                            <span>Minimum Required</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="scenarios" aria-labelledby="scenarios-heading">
+                    <h3 id="scenarios-heading"><i class="fas fa-scenarios" aria-hidden="true"></i> What If Scenarios</h3>
+                    <div class="scenario-grid" role="group" aria-label="Different attendance scenarios">
+                        <article class="scenario-card">
+                            <h4>If you bunk 1 class:</h4>
+                            <p id="scenario1" aria-live="polite"></p>
+                        </article>
+                        <article class="scenario-card">
+                            <h4>If you bunk 3 classes:</h4>
+                            <p id="scenario3" aria-live="polite"></p>
+                        </article>
+                        <article class="scenario-card">
+                            <h4>If you attend all remaining:</h4>
+                            <p id="scenarioAll" aria-live="polite"></p>
+                        </article>
+                    </div>
+                </section>
+            </section>
+        </main>
 
         <!-- AdSense Bottom Banner -->
-        <div class="ad-container bottom-banner">
+        <aside class="ad-container bottom-banner" aria-label="Advertisement">
             <ins class="adsbygoogle"
                  data-ad-client="ca-pub-7445444641578099"
                  data-ad-slot="1122334455"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
-        </div>
+        </aside>
 
-        <footer>
-            <p><i class="fas fa-info-circle"></i> Remember: Regular attendance is key to academic success!</p>
+        <footer role="contentinfo">
+            <p><i class="fas fa-info-circle" aria-hidden="true"></i> Remember: Regular attendance is key to academic success!</p>
+            <nav aria-label="Footer navigation">
+                <ul>
+                    <li><a href="#" aria-label="Privacy Policy">Privacy</a></li>
+                    <li><a href="#" aria-label="Terms of Service">Terms</a></li>
+                    <li><a href="https://github.com/SagarAgarwal2" aria-label="Visit developer's GitHub profile">Contact</a></li>
+                </ul>
+            </nav>
         </footer>
     </div>
 

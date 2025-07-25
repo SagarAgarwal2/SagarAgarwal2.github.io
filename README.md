@@ -235,3 +235,24 @@ This tool is for educational and planning purposes only. Always:
 =======
 # SagarAgarwal2.github.io
 >>>>>>> 93688eadf13a85706375fc2f92ee71d406203531
+
+## Cloud Sync & User Accounts
+
+This app supports user accounts and cloud sync using Firebase. To enable:
+
+1. Go to [Firebase Console](https://console.firebase.google.com/) and create a new project.
+2. Enable **Authentication** (Email/Password) and **Firestore Database**.
+3. In your project settings, get your Firebase config and replace the placeholder in `script.js`:
+
+```
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+```
+
+4. Deploy your app. Users can now sign up, log in, and sync their data across devices!
