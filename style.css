@@ -1396,95 +1396,10 @@ form {
 
 
 
-/* Achievements Section */
-#achievements-section {
-    margin-bottom: 30px;
-}
-#achievements-section h2 {
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-}
-#achievements-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-}
-.achievement-badge {
-    background: var(--glass-bg);
-    border: 2px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 18px 24px;
-    min-width: 180px;
-    min-height: 90px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    box-shadow: var(--shadow);
-    position: relative;
-    transition: border 0.2s, background 0.2s;
-    opacity: 0.7;
-}
-.achievement-badge.unlocked {
-    border-color: #10b981;
-    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    color: white;
-    opacity: 1;
-}
-.achievement-badge.locked {
-    border-color: #bdc3c7;
-    background: var(--glass-bg);
-    color: var(--text-light);
-    opacity: 0.5;
-}
-.achievement-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-.achievement-desc {
-    font-size: 0.95rem;
-    margin-bottom: 4px;
-}
-.achievement-date {
-    font-size: 0.8rem;
-    color: #888;
-}
 
 
 
 
 
-/* Statistics Section */
-#statistics-section {
-    margin-bottom: 30px;
-}
-#statistics-section h2 {
-    color: var(--text-primary);
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-}
-#statistics-content {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-.stats-row {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: var(--text-secondary);
-}
 
-/* Advice/Tips Area */
-.advice-tips {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 16px 22px;
-    margin-bottom: 24px;
-    color: var(--text-primary);
-    font-size: 1.05rem;
-    box-shadow: var(--shadow);
-    min-height: 36px;
-}
+
