@@ -77,37 +77,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <!-- Place above your main script.js -->
 
-    <!-- Auth Controls (top of dashboard) -->
-    <div class="auth-controls">
-        <span id="user-info" class="hidden"></span>
-        <button class="auth-btn" id="login-btn" onclick="showAuthModal()"><i class="fas fa-sign-in-alt"></i> Log In / Sign Up</button>
-        <button class="auth-btn hidden" id="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-    </div>
-    <!-- Auth Modal (hidden by default) -->
-    <div id="auth-modal" class="auth-modal hidden">
-        <div class="auth-modal-content">
-            <h3>Sign In / Sign Up</h3>
-            <input type="email" id="authEmail" placeholder="Email" required>
-            <input type="password" id="authPassword" placeholder="Password" required>
-            <button onclick="loginOrSignup()">Continue</button>
-            <button onclick="hideAuthModal()">Cancel</button>
-            <div id="auth-error" class="auth-error"></div>
-        </div>
-    </div>
-    <!-- Onboarding Modal (shown on first visit) -->
-    <div id="onboarding-modal" class="onboarding-modal hidden">
-        <div class="onboarding-content">
-            <h3>Welcome to Attendance & Study Tracker!</h3>
-            <ol>
-                <li>Add your subjects and track attendance for each one.</li>
-                <li>Record grades, set reminders, and manage your timetable.</li>
-                <li>Sync your data across devices by signing up!</li>
-                <li>Check achievements and detailed statistics for insights.</li>
-            </ol>
-            <button onclick="hideOnboarding()">Get Started</button>
-        </div>
-    </div>
-    <!-- Place above the data-controls -->
+
+
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -225,6 +196,20 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- Onboarding Modal (shown on first visit) -->
+    <div id="onboarding-modal" class="onboarding-modal hidden">
+        <div class="onboarding-content">
+            <h3>Welcome to Attendance & Study Tracker!</h3>
+            <ol>
+                <li>Add your subjects and track attendance for each one.</li>
+                <li>Record grades, set reminders, and manage your timetable.</li>
+                <li>Sync your data across devices by signing up!</li>
+                <li>Check achievements and detailed statistics for insights.</li>
+            </ol>
+            <button onclick="hideOnboarding()">Get Started</button>
+        </div>
+    </div>
+    
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
         <header role="banner">
@@ -238,6 +223,24 @@
         </header>
 
         <main role="main" id="main-content">
+            <!-- Auth Controls (top of dashboard) -->
+            <div class="auth-controls">
+                <span id="user-info" class="hidden"></span>
+                <button class="auth-btn" id="login-btn" onclick="showAuthModal()"><i class="fas fa-sign-in-alt"></i> Log In / Sign Up</button>
+                <button class="auth-btn hidden" id="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</button>
+            </div>
+            <!-- Auth Modal (hidden by default) -->
+            <div id="auth-modal" class="auth-modal hidden">
+                <div class="auth-modal-content">
+                    <h3>Sign In / Sign Up</h3>
+                    <input type="email" id="authEmail" placeholder="Email" required>
+                    <input type="password" id="authPassword" placeholder="Password" required>
+                    <button onclick="loginOrSignup()">Continue</button>
+                    <button onclick="hideAuthModal()">Cancel</button>
+                    <div id="auth-error" class="auth-error"></div>
+                </div>
+            </div>
+            
             <!-- Data Export/Import Controls (top of dashboard) -->
             <div class="data-controls">
                 <button class="export-btn" onclick="exportData('json')"><i class="fas fa-file-export"></i> Export JSON</button>
@@ -248,8 +251,6 @@
                 </label>
             </div>
             <!-- Place above the Subjects section -->
-            <div class="container">
-        <header role="banner">
 
             <section class="card" id="subjects-section" aria-labelledby="subjects-heading">
                 <h2 id="subjects-heading"><i class="fas fa-book" aria-hidden="true"></i> Subjects</h2>
