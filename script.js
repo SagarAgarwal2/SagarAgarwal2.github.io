@@ -1137,97 +1137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     checkAchievements && checkAchievements();
 });
 
-// --- Data Export/Import ---
-function exportData(format) {
-    const data = localStorage.getItem('subjects');
-    if (!data) {
-        alert('No data to export!');
-        return;
-    }
-    if (format === 'json') {
-        const blob = new Blob([data], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        downloadFile(url, 'attendance_data.json');
-    } else if (format === 'csv') {
-        const subjects = JSON.parse(data);
-        const csv = subjectsToCSV(subjects);
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        downloadFile(url, 'attendance_data.csv');
-    }
-}
 
-function downloadFile(url, filename) {
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }, 100);
-}
-
-function subjectsToCSV(subjects) {
-    // Flatten each subject's data for CSV export
-    let csv = 'Subject,Total Classes,Attended Classes,Min Attendance,Future Classes,Grades,Timetable,Reminders,Attendance Rules\n';
-    subjects.forEach(subj => {
-        const grades = (subj.grades || []).map(g => `${g.type}:${g.title}(${g.score}/${g.maxScore}${g.date ? ',' + g.date : ''})`).join('; ');
-        const timetable = (subj.timetable || []).map(t => `${t.day} ${t.start}-${t.end}`).join('; ');
-        const reminders = (subj.reminders || []).map(r => `${r.type}:${r.title}(${r.date}${r.notes ? ',' + r.notes : ''})`).join('; ');
-        const rules = subj.attendanceRules ? JSON.stringify(subj.attendanceRules) : '';
-        csv += `"${subj.name}",${subj.totalClasses},${subj.attendedClasses},${subj.minAttendance},${subj.futureClasses},"${grades}","${timetable}","${reminders}","${rules}"
-`;
-    });
-    return csv;
-}
-
-function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        let imported = null;
-        if (file.name.endsWith('.json')) {
-            try {
-                imported = JSON.parse(e.target.result);
-                if (!Array.isArray(imported)) throw new Error('Invalid JSON format');
-                localStorage.setItem('subjects', JSON.stringify(imported));
-                alert('Data imported successfully!');
-                loadSubjects();
-            } catch (err) {
-                alert('Failed to import JSON: ' + err.message);
-            }
-        } else if (file.name.endsWith('.csv')) {
-            // CSV import (simple, expects same format as export)
-            try {
-                const lines = e.target.result.split('\n').filter(Boolean);
-                const header = lines.shift();
-                const importedSubjects = lines.map(line => {
-                    const parts = line.match(/\"([^\"]*)\"|[^,]+/g).map(s => s.replace(/^\"|\"$/g, ''));
-                    return {
-                        name: parts[0],
-                        totalClasses: parseInt(parts[1]),
-                        attendedClasses: parseInt(parts[2]),
-                        minAttendance: parseInt(parts[3]),
-                        futureClasses: parseInt(parts[4]),
-                        grades: [],
-                        timetable: [],
-                        reminders: [],
-                        attendanceRules: parts[8] ? JSON.parse(parts[8]) : undefined
-                    };
-                });
-                localStorage.setItem('subjects', JSON.stringify(importedSubjects));
-                alert('CSV imported! Only basic fields restored. For full backup, use JSON export/import.');
-                loadSubjects();
-            } catch (err) {
-                alert('Failed to import CSV: ' + err.message);
-            }
-        }
-    };
-    reader.readAsText(file);
-}
 
 // --- Gamification: Achievements ---
 const ALL_ACHIEVEMENTS = [
@@ -1445,15 +1355,6 @@ saveSubjects = function() {
     }
 };
 
-// --- Onboarding Modal Logic ---
-function showOnboarding() {
-    document.getElementById('onboarding-modal').classList.remove('hidden');
-}
-function hideOnboarding() {
-    document.getElementById('onboarding-modal').classList.add('hidden');
-    localStorage.setItem('onboardingComplete', '1');
-}
-
 // --- Statistics Section Logic (placeholder for now) ---
 function renderStatisticsSection() {
     const subjects = JSON.parse(localStorage.getItem('subjects') || '[]');
@@ -1491,11 +1392,6 @@ function renderAdviceTips() {
         }
     }
     document.getElementById('advice-tips').innerHTML = advice;
-}
-
-// Show onboarding on first visit
-if (!localStorage.getItem('onboardingComplete')) {
-    window.addEventListener('DOMContentLoaded', showOnboarding);
 }
 
 document.addEventListener('DOMContentLoaded', function() {

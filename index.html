@@ -196,19 +196,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Onboarding Modal (shown on first visit) -->
-    <div id="onboarding-modal" class="onboarding-modal hidden">
-        <div class="onboarding-content">
-            <h3>Welcome to Attendance & Study Tracker!</h3>
-            <ol>
-                <li>Add your subjects and track attendance for each one.</li>
-                <li>Record grades, set reminders, and manage your timetable.</li>
-                <li>Sync your data across devices by signing up!</li>
-                <li>Check achievements and detailed statistics for insights.</li>
-            </ol>
-            <button onclick="hideOnboarding()">Get Started</button>
-        </div>
-    </div>
+
     
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
@@ -241,16 +229,7 @@
                 </div>
             </div>
             
-            <!-- Data Export/Import Controls (top of dashboard) -->
-            <div class="data-controls">
-                <button class="export-btn" onclick="exportData('json')"><i class="fas fa-file-export"></i> Export JSON</button>
-                <button class="export-btn" onclick="exportData('csv')"><i class="fas fa-file-csv"></i> Export CSV</button>
-                <label class="import-label">
-                    <i class="fas fa-file-import"></i> Import Data
-                    <input type="file" id="importFile" accept=".json,.csv" onchange="importData(event)">
-                </label>
-            </div>
-            <!-- Place above the Subjects section -->
+
 
             <section class="card" id="subjects-section" aria-labelledby="subjects-heading">
                 <h2 id="subjects-heading"><i class="fas fa-book" aria-hidden="true"></i> Subjects</h2>

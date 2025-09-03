@@ -1394,52 +1394,7 @@ form {
     background: #c0392b;
 }
 
-/* Data Export/Import Controls */
-.data-controls {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-.export-btn {
-    background: linear-gradient(135deg, var(--accent-color) 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.export-btn:hover {
-    background: linear-gradient(135deg, #764ba2 0%, var(--accent-color) 100%);
-}
-.import-label {
-    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.2s;
-    position: relative;
-}
-.import-label:hover {
-    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-}
-.import-label input[type="file"] {
-    display: none;
-}
+
 
 /* Achievements Section */
 #achievements-section {
@@ -1572,57 +1527,7 @@ form {
     min-height: 18px;
 }
 
-/* Onboarding Modal Fix */
-.onboarding-modal {
-    pointer-events: auto !important;
-    background: rgba(0,0,0,0.5);
-    z-index: 3000;
-}
-.onboarding-content {
-    pointer-events: auto !important;
-}
 
-/* Onboarding Modal */
-.onboarding-modal {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3000;
-}
-.onboarding-content {
-    background: var(--card-bg);
-    border-radius: 18px;
-    padding: 36px 32px;
-    box-shadow: var(--shadow);
-    min-width: 340px;
-    max-width: 90vw;
-    text-align: left;
-    color: var(--text-primary);
-}
-.onboarding-content h3 {
-    margin-bottom: 18px;
-    font-size: 1.4rem;
-}
-.onboarding-content ol {
-    margin-bottom: 18px;
-    padding-left: 20px;
-}
-.onboarding-content button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-.onboarding-content button:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-}
 
 /* Statistics Section */
 #statistics-section {
