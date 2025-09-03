@@ -71,11 +71,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <!-- Place above your main script.js -->
+
 
 
 
@@ -211,23 +207,7 @@
         </header>
 
         <main role="main" id="main-content">
-            <!-- Auth Controls (top of dashboard) -->
-            <div class="auth-controls">
-                <span id="user-info" class="hidden"></span>
-                <button class="auth-btn" id="login-btn" onclick="showAuthModal()"><i class="fas fa-sign-in-alt"></i> Log In / Sign Up</button>
-                <button class="auth-btn hidden" id="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Log Out</button>
-            </div>
-            <!-- Auth Modal (hidden by default) -->
-            <div id="auth-modal" class="auth-modal hidden">
-                <div class="auth-modal-content">
-                    <h3>Sign In / Sign Up</h3>
-                    <input type="email" id="authEmail" placeholder="Email" required>
-                    <input type="password" id="authPassword" placeholder="Password" required>
-                    <button onclick="loginOrSignup()">Continue</button>
-                    <button onclick="hideAuthModal()">Cancel</button>
-                    <div id="auth-error" class="auth-error"></div>
-                </div>
-            </div>
+
             
 
 
