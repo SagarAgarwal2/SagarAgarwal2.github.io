@@ -1572,6 +1572,16 @@ form {
     min-height: 18px;
 }
 
+/* Onboarding Modal Fix */
+.onboarding-modal {
+    pointer-events: auto !important;
+    background: rgba(0,0,0,0.5);
+    z-index: 3000;
+}
+.onboarding-content {
+    pointer-events: auto !important;
+}
+
 /* Onboarding Modal */
 .onboarding-modal {
     position: fixed;
